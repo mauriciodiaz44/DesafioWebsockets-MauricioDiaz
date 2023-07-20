@@ -71,6 +71,12 @@ productsRouter.post("/", async (req, res) => {
 productsRouter.delete("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
+    const products = await manager.getProducts();
+    const productsById = products.find((producto) => producto.id == pid);
+
+    if (!productsById) {
+      res.status(404).send({ error: true, message: "Producto no encontrado" });
+    }
     await manager.deleteProduct(pid);
     res.send({ deleted: true });
   } catch (e) {
