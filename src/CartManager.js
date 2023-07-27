@@ -2,7 +2,7 @@ import fs from "fs/promises";
 
 export default class CartManager {
   constructor() {
-    this.path = "./db/carrito.json";
+    this.path = "./src/db/carrito.json";
     this.cart = [];
   }
 

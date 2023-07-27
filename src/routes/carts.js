@@ -17,7 +17,7 @@ cartsRouter.get("/:cid", async (req, res) => {
     }
     res.send(cartById);
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -27,7 +27,7 @@ cartsRouter.post("/", async (req, res) => {
     const cart = await manager.addCart();
     res.send(cart);
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -51,7 +51,7 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
     await manager.addProductCart(cid, pid);
     res.send({ created: true });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 

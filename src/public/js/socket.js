@@ -4,20 +4,23 @@ socket.on("saludo", (data) => {
   console.log(`su cliente ha sido conectado: ${data}`);
 });
 
-socket.on("addProduct", (data) => {
-  let log = document.getElementById("log");
-  log.innerHTML += `
-    <ul id=${data.id}>
-        <li><b>ID: </b>${data.id}</li>
-        <li><b>Titulo: </b>${data.title}</li>
-        <li><b>Descripcion: </b>${data.description}</li>
-        <li><b>Precio: </b>${data.price}</li>
-        <li><b>Categoria: </b>${data.category}</li>
-        <li><b>Stock: </b>${data.stock}</li>
-    </ul>
-    `;
+socket.on("listProducts", (data) => {
+  refreshProducts(data);
 });
 
-socket.on("removeProduct", (data) => {
-  document.getElementById(data).remove();
-});
+function refreshProducts(data) {
+  const log = document.getElementById("log");
+  log.innerHTML = "";
+  data.forEach((i) => {
+    log.innerHTML += `
+          <ul>
+      <li><b>ID: </b>${i.id}</li>
+      <li><b>Titulo: </b>${i.title}</li>
+      <li><b>Descripcion: </b>${i.description}</li>
+      <li><b>Precio: </b>${i.price}</li>
+      <li><b>Categoria: </b>${i.category}</li>
+      <li><b>Stock: </b>${i.stock}</li>
+    </ul>
+    `;
+  });
+}

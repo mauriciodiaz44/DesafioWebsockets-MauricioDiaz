@@ -12,7 +12,7 @@ productsRouter.get("/", async (req, res) => {
 
     res.send(limit ? productsLimit : products);
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -28,7 +28,7 @@ productsRouter.get("/:pid", async (req, res) => {
     }
     res.send(productsById);
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -40,7 +40,7 @@ productsRouter.put("/:pid", async (req, res) => {
     await manager.updateProduct(pid, product);
     res.send({ update: true });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -62,7 +62,7 @@ productsRouter.post("/", async (req, res) => {
       const result = await manager.addProduct(body);
       res.send(result);
     } catch (e) {
-      res.status(502).send({ error: true });
+      res.status(502).send({ error: true, msg: e });
     }
   }
 });
@@ -80,7 +80,7 @@ productsRouter.delete("/:pid", async (req, res) => {
     await manager.deleteProduct(pid);
     res.send({ deleted: true });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 

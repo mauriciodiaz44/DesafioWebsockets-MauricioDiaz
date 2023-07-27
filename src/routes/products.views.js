@@ -9,7 +9,7 @@ productsView.get("/", async (req, res) => {
     const products = await manager.getProducts();
     res.render("home", { products: products });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -25,7 +25,7 @@ productsView.get("/:pid", async (req, res) => {
     }
     res.render("home", { products: productsById });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -37,7 +37,7 @@ productsView.put("/:pid", async (req, res) => {
     await manager.updateProduct(pid, product);
     res.send({ update: true });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 
@@ -60,7 +60,7 @@ productsView.post("/", async (req, res) => {
 
       res.send(result);
     } catch (e) {
-      res.status(502).send({ error: true });
+      res.status(502).send({ error: true, msg: e });
     }
   }
 });
@@ -72,7 +72,7 @@ productsView.delete("/:pid", async (req, res) => {
     await manager.deleteProduct(pid);
     res.send({ deleted: true });
   } catch (e) {
-    res.status(502).send({ error: true });
+    res.status(502).send({ error: true, msg: e });
   }
 });
 

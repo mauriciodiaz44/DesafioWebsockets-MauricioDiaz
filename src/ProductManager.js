@@ -2,7 +2,7 @@ import fs from "fs/promises";
 
 export default class ProductManager {
   constructor() {
-    this.path = "./db/products.json";
+    this.path = "./src/db/products.json";
     this.products = [];
   }
 
@@ -48,6 +48,16 @@ export default class ProductManager {
         category,
         thumbnails,
       };
+
+      const codeIsFound = this.products.some(
+        (product) => product.code === code
+      );
+      if (codeIsFound) {
+        console.log("Este codigo ya existe:", code);
+
+        return;
+      }
+
       this.products = products;
       products.push(product);
       await this.#saveProducts(products);
@@ -77,10 +87,16 @@ export default class ProductManager {
     await this.#saveProducts(products);
   };
 
-  deleteProduct = async (id) => {
+  deleteProduct = async (pid) => {
     const products = await this.getProducts();
-    const productRemoveById = products.filter((producto) => producto.id !== id);
-    await this.#saveProducts(productRemoveById);
+
+    let idIsFound = products.find((product) => product.id === pid);
+    if (!idIsFound) {
+      return `No se ha encontrado ese producto con id ${pid}`;
+    }
+
+    const removeById = products.filter((item) => item.id !== pid);
+    await this.#saveProducts(removeById);
   };
 
   deleteAll = async () => {
