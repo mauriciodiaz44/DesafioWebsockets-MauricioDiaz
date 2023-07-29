@@ -13,7 +13,7 @@ function refreshProducts(data) {
   log.innerHTML = "";
   data.forEach((i) => {
     log.innerHTML += `
-          <ul>
+          <ul id=${i.id}>
       <li><b>ID: </b>${i.id}</li>
       <li><b>Titulo: </b>${i.title}</li>
       <li><b>Descripcion: </b>${i.description}</li>
